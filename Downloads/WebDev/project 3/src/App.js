@@ -1,8 +1,41 @@
-import './App.css';
+import React from 'react';
+import { useState } from "react";
 import ParkingLotForm from './Components/ParkingLotForm/ParkingLotForm';
 import ParkingLotList from './Components/ParkingLotList/ParkingLotList';
+import './App.css';
+import { nanoid } from 'nanoid';
 
 function App() {
+  
+  function addItem(date, link, description, priority) {
+    setParkingLotItems((oldItems) => [
+            ...oldItems,
+            {
+                id: nanoid(),
+                date,
+                description,
+                link,
+                priority,
+            },
+        ]);
+}
+
+  let [parkingLotItems, setParkingLotItems] = useState([
+    {
+      id: nanoid(),
+      date: '05/14/2024',
+      priority: 'Low',
+      link: 'https://google.com/',
+      description: 'Ultimate source of truth',
+    },
+    {
+      id: nanoid(),
+      date: '05/14/2024',
+      priority: 'Medium',
+      link: 'https://react.dev/',
+      description: 'React documentation and tutorial',
+    },
+  ]);
   return (
     <div className="App">
       <header className="App-header">
@@ -11,8 +44,9 @@ function App() {
           <p>Second Tag</p>
       </header>
       <main>
-        <ParkingLotForm />
-        <ParkingLotList />
+        <ParkingLotForm addItem={addItem} />
+        <ParkingLotList parkingLotItems={parkingLotItems}/>
+        
       </main>
     </div>
   );
