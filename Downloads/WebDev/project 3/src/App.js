@@ -41,7 +41,6 @@ function App() {
       <header className="App-header">
           <h1>Browser Parking Lot</h1>
           <p>Send most of your browser tabs into retirement</p>
-          <p>Second Tag</p>
       </header>
       <main>
         <ParkingLotForm addItem={addItem} />

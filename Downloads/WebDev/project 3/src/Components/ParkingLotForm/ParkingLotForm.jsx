@@ -58,7 +58,7 @@ export default function ParkingLotForm( { addItem }) {
                 id="link-date"
                 type="date"
                 name="date"
-                valie={date}
+                value={date}
                 onChange={handleDateChange}
                 required
                 />
