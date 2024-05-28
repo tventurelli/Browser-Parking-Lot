@@ -6,6 +6,12 @@ import './App.css';
 import { nanoid } from 'nanoid';
 
 function App() {
+
+  function deleteItem(id) {
+    setParkingLotItems((oldItems) => 
+        oldItems.filter((item) => item.id !== id)
+  );
+}
   
   function addItem(date, link, description, priority) {
     setParkingLotItems((oldItems) => [
@@ -44,7 +50,9 @@ function App() {
       </header>
       <main>
         <ParkingLotForm addItem={addItem} />
-        <ParkingLotList parkingLotItems={parkingLotItems}/>
+        <ParkingLotList 
+          parkingLotItems={parkingLotItems}
+          deleteItem={deleteItem} />
         
       </main>
     </div>

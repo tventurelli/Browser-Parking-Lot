@@ -89,7 +89,8 @@ export default function ParkingLotForm( { addItem }) {
           required
         />
       </FormGroup>
-      <FormGroup className="parking-lot-row">
+      <FormGroup className="parking-lot-row d-flex flex-wrap">
+        <div>
         <Input
           name="radio-priority"
           type="radio"
@@ -102,6 +103,8 @@ export default function ParkingLotForm( { addItem }) {
         <Label htmlFor="prio-high" className="me-3">
           High
         </Label>
+        </div>
+        <div>
         <Input
           name="radio-priority"
           type="radio"
@@ -113,7 +116,9 @@ export default function ParkingLotForm( { addItem }) {
         {' '}
         <Label htmlFor="prio-medium" className="me-3">
           Medium
-        </Label> 
+        </Label>
+        </div>
+        <div>
         <Input
           name="radio-priority"
           type="radio"
@@ -126,6 +131,7 @@ export default function ParkingLotForm( { addItem }) {
         <Label htmlFor="prio-low" className="me-3">
           Low
         </Label>                
+        </div>
       </FormGroup>
             <Button type='submit'>
                 Submit
