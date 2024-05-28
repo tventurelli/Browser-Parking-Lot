@@ -7,14 +7,9 @@ import { nanoid } from 'nanoid';
 
 function App() {
 
-  function deleteItem(id) {
-    setParkingLotItems((oldItems) => 
-        oldItems.filter((item) => item.id !== id)
-  );
-}
-  
   function addItem(date, link, description, priority) {
-    setParkingLotItems((oldItems) => [
+    setParkingLotItems (function (oldItems) {
+        let newItems = [
             ...oldItems,
             {
                 id: nanoid(),
@@ -23,25 +18,29 @@ function App() {
                 link,
                 priority,
             },
-        ]);
+        ];
+        localStorage.setItem('items', JSON.stringify(newItems));
+        return newItems;
+});
 }
 
-  let [parkingLotItems, setParkingLotItems] = useState([
-    {
-      id: nanoid(),
-      date: '05/14/2024',
-      priority: 'Low',
-      link: 'https://google.com/',
-      description: 'Ultimate source of truth',
-    },
-    {
-      id: nanoid(),
-      date: '05/14/2024',
-      priority: 'Medium',
-      link: 'https://react.dev/',
-      description: 'React documentation and tutorial',
-    },
-  ]);
+function deleteItem(id) {
+  setParkingLotItems( function (oldItems) { 
+      let newItems = oldItems.filter((item) => item.id !== id);
+      localStorage.setItem('items', JSON.stringify(newItems));
+      return newItems;
+});
+}
+
+function getInitialState() {
+  let savedState = localStorage.getItem('items');
+  if (typeof savedState === 'string') {
+    return JSON.parse(savedState);
+  }
+  return [];
+}
+
+  const [parkingLotItems, setParkingLotItems] = useState(getInitialState());
   return (
     <div className="App">
       <header className="App-header">
