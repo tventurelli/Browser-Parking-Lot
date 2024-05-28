@@ -12,7 +12,7 @@ export default function ParkingLotItem({
       }) {
 
     function handleDelete() {
-      alert(id);
+      deleteItem(id);
     }
     return (
       <Card
@@ -23,7 +23,7 @@ export default function ParkingLotItem({
       <CardHeader className="card-header">
         { date } (Priority: { priority })
         <Button color="danger" className="delete-button" onClick={handleDelete}>
-          <strong>X</strong>
+            <strong>X</strong>
         </Button>
       </CardHeader>
       <CardBody>

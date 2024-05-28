@@ -1,15 +1,24 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ParkingLotForm from './Components/ParkingLotForm/ParkingLotForm';
 import ParkingLotList from './Components/ParkingLotList/ParkingLotList';
 import './App.css';
 import { nanoid } from 'nanoid';
+import Timer from "./Components/Timer/Timer";
 
 function App() {
 
-  function addItem(date, link, description, priority) {
-    setParkingLotItems (function (oldItems) {
-        let newItems = [
+const [parkingLotItems, setParkingLotItems] = useState(getInitialState());
+
+function saveParkingLotItems() {
+  localStorage.setItem("items", JSON.stringify(parkingLotItems));
+}
+
+useEffect(saveParkingLotItems, [ parkingLotItems ]);
+
+function addItem(date, link, description, priority) {
+    setParkingLotItems ( (oldItems) =>
+        [
             ...oldItems,
             {
                 id: nanoid(),
@@ -18,18 +27,13 @@ function App() {
                 link,
                 priority,
             },
-        ];
-        localStorage.setItem('items', JSON.stringify(newItems));
-        return newItems;
-});
+        ]);
 }
 
 function deleteItem(id) {
-  setParkingLotItems( function (oldItems) { 
-      let newItems = oldItems.filter((item) => item.id !== id);
-      localStorage.setItem('items', JSON.stringify(newItems));
-      return newItems;
-});
+  setParkingLotItems(
+    (oldItems) => oldItems.filter(item => item.id !== id)
+); 
 }
 
 function getInitialState() {
@@ -40,12 +44,15 @@ function getInitialState() {
   return [];
 }
 
-  const [parkingLotItems, setParkingLotItems] = useState(getInitialState());
+
+
+
   return (
     <div className="App">
       <header className="App-header">
           <h1>Browser Parking Lot</h1>
           <p>Send most of your browser tabs into retirement</p>
+          <Timer />
       </header>
       <main>
         <ParkingLotForm addItem={addItem} />
